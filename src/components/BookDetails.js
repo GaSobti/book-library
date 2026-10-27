@@ -13,8 +13,8 @@ function BookDetails({ book }) {
     dispatch(
       updateBook({
         ...book,
-        title,
-        author,
+        title: title.trim() || book.title,
+        author: author.trim() || book.author,
       })
     );
 
@@ -24,32 +24,33 @@ function BookDetails({ book }) {
   return (
     <div>
       {edit ? (
-        <>
+        <div className="edit-form">
           <input
             value={title}
-            onChange={(e) =>
-              setTitle(e.target.value)
-            }
+            onChange={(e) => setTitle(e.target.value)}
           />
 
           <input
             value={author}
-            onChange={(e) =>
-              setAuthor(e.target.value)
-            }
+            onChange={(e) => setAuthor(e.target.value)}
           />
 
-          <button onClick={saveChanges}>
-            Save
-          </button>
-        </>
+          <div className="book-actions">
+            <button onClick={saveChanges}>Save</button>
+            <button className="secondary-button" onClick={() => setEdit(false)}>
+              Cancel
+            </button>
+          </div>
+        </div>
       ) : (
         <>
           <h4>{book.title}</h4>
           <p>{book.author}</p>
-          <button onClick={() => setEdit(true)}>
-            Edit
-          </button>
+          <div className="book-actions">
+            <button className="secondary-button" onClick={() => setEdit(true)}>
+              Edit
+            </button>
+          </div>
         </>
       )}
     </div>

@@ -11,11 +11,13 @@ function AddBook() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    if (!title.trim() || !author.trim()) return;
+
     dispatch(
       addBook({
         id: Date.now(),
-        title,
-        author,
+        title: title.trim(),
+        author: author.trim(),
         read: false,
       })
     );
@@ -29,18 +31,18 @@ function AddBook() {
       <h3>Add Book</h3>
 
       <input
-        placeholder="Book Title"
+        placeholder="Book title"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
 
       <input
-        placeholder="Author"
+        placeholder="Author name"
         value={author}
         onChange={(e) => setAuthor(e.target.value)}
       />
 
-      <button type="submit">Add</button>
+      <button type="submit">Add to library</button>
     </form>
   );
 }

@@ -15,23 +15,30 @@ function BookList() {
   });
 
   return (
-    <div>
-      <h3>Books</h3>
+    <div className="books-section">
+      <h3>{filteredBooks.length} books</h3>
 
-      {filteredBooks.map((book) => (
-        <div key={book.id} className="card">
-          <BookDetails book={book} />
+      {filteredBooks.length === 0 ? (
+        <p>No books in this category yet.</p>
+      ) : (
+        filteredBooks.map((book) => (
+          <div key={book.id} className="book-card">
+            <BookDetails book={book} />
 
-          <p>
-            Status:
-            {book.read ? " Read" : " Unread"}
-          </p>
+            <div className="book-meta">
+              <span className={`status-pill ${book.read ? "read" : "unread"}`}>
+                {book.read ? "Read" : "Unread"}
+              </span>
 
-          <button onClick={() => dispatch(toggleReadStatus(book.id))}>
-            Mark {book.read ? "Unread" : "Read"}
-          </button>
-        </div>
-      ))}
+              <div className="book-actions">
+                <button onClick={() => dispatch(toggleReadStatus(book.id))}>
+                  Mark {book.read ? "Unread" : "Read"}
+                </button>
+              </div>
+            </div>
+          </div>
+        ))
+      )}
     </div>
   );
 }
